@@ -1,48 +1,55 @@
 import { useState } from "react";
 import { store } from "react-notifications-component";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export default function AddTask({ onAdd }) {
   const [name, setname] = useState("");
-  const [day, setday] = useState("");
+  var day = "";
   const [remainder, setremainder] = useState(false);
+  const [startDate, setStartDate] = useState(new Date());
 
   const onsubmit = (e) => {
     e.preventDefault();
 
+    day = startDate.toString();
+    day = day.slice(4, 25);
+    console.log(day);
     if (!name) {
-      {
-        store.addNotification({
-          title: "Error!",
-          message: "Please Enter Task Name",
-          type: "danger",
-          container: "top-right",
-          insert: "top",
+      store.addNotification({
+        title: "Error!",
+        message: "Please Enter Task Name",
+        type: "danger",
+        container: "top-right",
+        insert: "top",
+        dismiss: {
+          duration: 3000,
+          onScreen: true,
+        },
+      });
 
-          dismiss: {
-            duration: 3000,
-            onScreen: true,
-          },
-        });
-      }
       return;
     }
-    if (!day) {
-      {
-        store.addNotification({
-          title: "Error!",
-          message: "Please Select Task Date And Time",
-          type: "danger",
-          container: "top-right",
-          insert: "top",
+    if (!startDate) {
+      store.addNotification({
+        title: "Error!",
+        message: "Please Select Task Date And Time",
+        type: "danger",
+        container: "top-right",
+        insert: "top",
 
-          dismiss: {
-            duration: 3000,
-            onScreen: true,
-          },
-        });
-      }
+        dismiss: {
+          duration: 3000,
+          onScreen: true,
+        },
+      });
+
       return;
     }
+
+    onAdd({ name, day, remainder });
+    setname("");
+    setremainder(false);
     store.addNotification({
       title: "Success!",
       message: "Task Added To State Successfully",
@@ -57,10 +64,6 @@ export default function AddTask({ onAdd }) {
         showIcon: true,
       },
     });
-    onAdd({ name, day, remainder });
-    setname("");
-    setday("");
-    setremainder(false);
   };
   return (
     <div>
@@ -76,12 +79,13 @@ export default function AddTask({ onAdd }) {
         </div>
         <div className="form-control">
           <label>Date & Time</label>
-
-          <input
-            type="text"
-            placeholder="Enter Date and Time"
-            value={day}
-            onChange={(e) => setday(e.target.value)}
+          <DatePicker
+            selected={new Date(startDate.getTime() + 86400000)}
+            onChange={(date) => setStartDate(date)}
+            timeInputLabel="Time:"
+            minDate={(new Date(), 5)}
+            dateFormat="dd, MMMM yyyy h:mm aa"
+            showTimeInput
           />
         </div>
         <div className="form-control form-control-check">

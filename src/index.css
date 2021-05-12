@@ -29,7 +29,7 @@ code {
 
 .btn {
   display: inline-block;
-  background: #000;
+  background: rgb(46, 146, 0);
   color: #fff;
   border: none;
   padding: 10px 20px;
