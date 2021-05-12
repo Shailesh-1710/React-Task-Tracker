@@ -80,10 +80,9 @@ export default function AddTask({ onAdd }) {
         <div className="form-control">
           <label>Date & Time</label>
           <DatePicker
-            selected={new Date(startDate.getTime() + 86400000)}
+            selected={startDate}
             onChange={(date) => setStartDate(date)}
             timeInputLabel="Time:"
-            minDate={(new Date(), 5)}
             dateFormat="dd, MMMM yyyy h:mm aa"
             showTimeInput
           />

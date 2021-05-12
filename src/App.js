@@ -12,20 +12,20 @@ function App() {
   const [taskarray, setTaskarray] = useState([
     {
       id: 1,
-      name: "Appointment",
-      day: "Feb 5th at 2:30",
+      name: "Default Appointment 1",
+      day: "June 12 2021 14:30:00",
       remainder: true,
     },
     {
       id: 2,
       name: "Double Click me to Add Remainder",
-      day: "Feb 7th at 4:30",
+      day: "Jul 15 2021 16:00:00",
       remainder: false,
     },
     {
       id: 3,
       name: "Double Click me to Remove Remainder",
-      day: "Feb 7th at 5:15",
+      day: "Sep 23 2021 09:30:00",
       remainder: true,
     },
   ]);
