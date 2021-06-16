@@ -74,6 +74,10 @@ function App() {
         ) : (
           <h4>Please Add Tasks to Show here</h4>
         )}
+        <h4>
+          Please Check state Component from react Chrome React Developer Tools
+          to verify item.
+        </h4>
       </div>
     </div>
   );

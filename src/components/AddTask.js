@@ -2,6 +2,7 @@ import { useState } from "react";
 import { store } from "react-notifications-component";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import axios from "axios";
 
 export default function AddTask({ onAdd }) {
   const [name, setname] = useState("");
@@ -27,7 +28,6 @@ export default function AddTask({ onAdd }) {
           onScreen: true,
         },
       });
-
       return;
     }
     if (!startDate) {
@@ -43,7 +43,6 @@ export default function AddTask({ onAdd }) {
           onScreen: true,
         },
       });
-
       return;
     }
 
@@ -64,6 +63,11 @@ export default function AddTask({ onAdd }) {
         showIcon: true,
       },
     });
+    const newTask = {
+      taskname: name,
+    };
+    axios.post("http://localhost:3001/create", newTask).catch(console.error());
+    console.log("AXIOS EXECUTED");
   };
   return (
     <div>
@@ -75,6 +79,7 @@ export default function AddTask({ onAdd }) {
             placeholder="Type in Task Name here"
             value={name}
             onChange={(e) => setname(e.target.value)}
+            name="taskname"
           />
         </div>
         <div className="form-control">
@@ -83,7 +88,7 @@ export default function AddTask({ onAdd }) {
             selected={startDate}
             onChange={(date) => setStartDate(date)}
             timeInputLabel="Time:"
-            dateFormat="dd, MMMM yyyy h:mm aa"
+            dateFormat="dd, MMMM yyyy h:mm a"
             showTimeInput
           />
         </div>
